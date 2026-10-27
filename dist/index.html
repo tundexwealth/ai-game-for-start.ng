@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4bb62" />
+    <meta name="description" content="Explore the streets, find your style, and make your mark in Lagos Legends." />
+    <title>Lagos Legends: Street Quest</title>
+    <script type="module" crossorigin src="./assets/index-DyDCBjS0.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/three-vendor-KDtbqMbX.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-7RVZbNMx.css">
+  </head>
+  <body>
+    <main id="game" aria-label="Lagos Legends game">
+      <div id="scene" aria-hidden="true"></div>
+      <header class="topbar">
+        <a class="brand" href="https://start.ng" aria-label="Back to start.ng">START.NG <span> presents</span></a>
+        <a class="signin-chip" id="signin-top" href="https://start.ng/">Sign in</a><div class="player-pill"><span class="avatar" id="avatar">G</span><span><strong id="player-name">Guest</strong><small id="player-account">Local explorer</small></span></div>
+      </header>
+      <section class="intro card" id="intro">
+        <p class="eyebrow">A STREET QUEST IN LAGOS</p>
+        <h1>Your city.<br /><em>Your story.</em></h1>
+        <p>Walk the neighbourhood, meet your neighbours, and make this city yours.</p>
+        <button id="start-button" class="primary">Step into the street <span>→</span></button>
+        <a id="signin-link" class="text-link" href="https://start.ng/">Sign in on start.ng</a>
+      </section>
+      <section class="hud" id="hud" hidden>
+        <div class="location card"><span class="live-dot"></span><span><small>YOU ARE IN</small><strong>Marina Quarter</strong></span><span class="stats"><b id="cash">₦0</b><small>CASH</small><b id="reputation">0</b><small>REP</small></span></div>
+        <div class="life-card card" role="status" aria-live="polite"><small>LIVES</small><span id="life-icons" aria-label="3 of 3 lives">♥ ♥ ♥</span></div>
+        <div class="controls card"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>move</span><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd><span>move</span><kbd>E</kbd><span>enter / interact</span></div>
+        <div class="quest-card card" id="quest-card"><small>YOUR NEXT STEP</small><strong id="quest-title">Meet Wale</strong><span id="quest-objective">Find the market stall marked with a ! and press E.</span><small class="quest-timer" id="quest-timer" hidden></small></div>
+        <aside class="minimap-panel card" aria-label="Neighborhood map">
+          <button class="minimap-trigger" id="map-expand" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Expand the neighborhood map">
+            <span class="minimap-heading"><strong>QUARTER MAP</strong><span aria-hidden="true">N ↑</span></span>
+            <canvas id="minimap" width="180" height="180" aria-hidden="true"></canvas>
+            <span class="minimap-legend"><span><i class="map-dot player-dot"></i>You</span><span><i class="map-dot car-dot"></i>Car</span><span><i class="map-dot goal-dot"></i>Goal</span></span>
+            <span class="map-expand-hint">Click to expand</span>
+          </button>
+        </aside>
+        <div class="hint card">Drag to look around <span>·</span> Explore at your own pace</div><div class="interact-prompt card" id="interact-prompt" hidden>Press <kbd>E</kbd> to talk</div><div class="toast card" id="toast" hidden></div>
+      </section>
+      <section class="map-overlay" id="map-overlay" role="dialog" aria-modal="true" aria-labelledby="expanded-map-title" hidden>
+        <div class="expanded-map-panel card">
+          <header class="expanded-map-header">
+            <div><small>MARINA QUARTER</small><h2 id="expanded-map-title">Neighborhood map</h2><p id="expanded-map-target">Your destination is marked in pink.</p></div>
+            <button class="close-modal" id="close-map" type="button" aria-label="Close map">×</button>
+          </header>
+          <canvas id="expanded-map" width="720" height="825" role="img" aria-label="Expanded neighborhood map showing your location, traffic, and mission objective"></canvas>
+          <div class="expanded-map-legend"><span><i class="map-dot player-dot"></i>You</span><span><i class="map-dot car-dot"></i>Cars</span><span><i class="map-dot goal-dot"></i>Mission objective</span></div>
+          <p class="expanded-map-help">The game is paused. Press Esc or close the map to continue.</p>
+        </div>
+      </section>
+      <footer><span>Find your next chapter in <strong>Lagos Legends</strong></span><a href="https://start.ng">Play more on start.ng ↗</a><button id="share-button" type="button">Share the game ↗</button></footer>
+      <section class="result-overlay" id="game-over-screen" role="dialog" aria-modal="true" aria-labelledby="game-over-title" hidden>
+        <div class="result-panel game-over-panel">
+          <p class="result-eyebrow">RUN ENDED</p>
+          <h2 id="game-over-title">GAME OVER</h2>
+          <p>All three lives are gone. Your progress has been reset. A new run is ready at Wale’s first mission.</p>
+          <button class="result-button" id="game-over-start" type="button">Start a new run</button>
+        </div>
+      </section>
+      <section class="result-overlay" id="mission-failed-screen" role="dialog" aria-modal="true" aria-labelledby="mission-failed-title" hidden>
+        <div class="result-panel mission-failed-panel">
+          <p class="result-eyebrow">THE CLOCK RAN OUT</p>
+          <h2 id="mission-failed-title">MISSION FAILED</h2>
+          <p id="mission-failed-message">The delivery was late. Find the mission giver to try again.</p>
+          <button class="result-button" id="mission-failed-continue" type="button">Find the mission giver</button>
+        </div>
+      </section>
+      <section class="wardrobe-modal" id="wardrobe-modal" role="dialog" aria-modal="true" aria-labelledby="wardrobe-heading" hidden>
+        <div class="wardrobe-panel card">
+          <button class="close-modal" id="close-wardrobe" type="button" aria-label="Close wardrobe">×</button>
+          <p class="eyebrow">TIDE &amp; THREAD · MARINA QUARTER</p>
+          <h2 id="wardrobe-heading">Wear your story</h2>
+          <p class="wardrobe-intro">Every piece changes the character you see in the street.</p>
+          <div class="wardrobe-balance">Your cash <strong id="wardrobe-cash">₦0</strong></div>
+          <div id="wardrobe-items" class="wardrobe-items"></div>
+          <div class="wardrobe-actions"><button id="reset-save" type="button" class="reset-save">Reset saved progress</button><span>Press Esc to close</span></div>
+        </div>
+      </section>
+      <div id="loading" class="loading">Warming up the neighbourhood…</div>
+    </main>
+  </body>
+</html>
+
+
+
